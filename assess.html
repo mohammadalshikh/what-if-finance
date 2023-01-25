@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Assess annual personal expenses and get financial advice">
+        <meta name="author" content="Jacob Fortin, Jean-Baptiste Garibo, Mohammad Alshikh">
+        <title>What If Finance</title>
+        <link rel="icon" type="images/jpg" href="media/icon.jpg" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .b-example-divider {
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .h {
+            background-color: #ED635E;
+            transition: background-color 0.3s ease-out 30ms;
+            border: 0cm;
+            color: white;
+        }
+
+        .h:hover {
+            background-color: #DC3545;
+            border: 0cm;
+            color: white;
+        }
+
+        #ref {
+            text-decoration: none;
+        }
+
+        #ref:hover {
+            text-decoration: underline;
+        }
+
+        .btn-circle {
+            border-color: white;
+            background-color: white;
+            color: #ED635E;
+            width: 20px;
+            height: 20px;
+            padding: 0px 0px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 13px;
+            background-color: #ED635E;
+            transition: background-color 0.3s ease-out 30ms;
+            border: 0cm;
+            color: white;
+        }
+
+        .btn-circle:hover {
+            background-color: #DC3545;
+            border: 0cm;
+            color: white;
+        }
+    </style>
+    </head>
+
+    <body>
+
+        <header style="background-color: #ED635E;">
+            <div class="collapse" id="navbarHeader">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-md-7 py-4">
+                            <h4 class="text-white">About</h4>
+                            <p style="color: white;">Each year, the Government of Canada releases a detailed household
+                                consumption expenditure
+                                through its agency, Statistics Canada. With the current high inflation rate, and the
+                                possibility that our country is heading to a recession,
+                                good financial health has now become more important than ever. <br> <br> What If Finance
+                                helps you assess your
+                                personal finance by
+                                comparing your annual expenses with the national average and gives you advice based on
+                                that.
+                            </p>
+                        </div>
+                        <div class="col-sm-4 offset-md-1 py-4">
+                            <h4 class="text-white">Our team:</h4>
+                            <ul class="list-unstyled">
+                                <li><a href="https://www.linkedin.com/in/jacob-fortin-00bb17150/" target="_blank"
+                                        class="text-white">Jacob Fortin</a></li>
+                                <li><a href="https://www.linkedin.com/in/jean-baptiste-garibo-12772a226/"
+                                        target="_blank" class="text-white">Jean-Baptiste Garibo</a></li>
+                                <li><a href="https://www.linkedin.com/in/mohammadalshikh/" target="_blank"
+                                        class="text-white">Mohammad
+                                        Alshikh</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar">
+                <div class="container">
+                    <a href="index.html" class="navbar-brand d-flex align-items-center">
+                        <img src="media/logo.png" style="width: 240px;" alt="">
+                    </a>
+                    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="py-5 text-center container">
+                <div class="container">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <h1 style="font-size: 250%;" class="fw-light">Calculating your expenses</h1>
+                    </div>
+                    <p style="text-align: justify; font-size: 110%;"><br>How it works: The algorithm calculates the
+                        extra
+                        money you spent in all categories. Then, it distributes that extra money to the categories that
+                        are deemed important (health care, groceries and education). If these categories are filled, the
+                        extra is recommended to be invested.</p>
+                    <div>
+                        <p style="text-align: justify; font-size: 135%;"><br>Enter your annual expenses in each of the
+                            following areas: <button type="button"
+                                style="position: relative; bottom: 1.5px; left: 30px;" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal" class="btn btn-danger btn-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor"
+                                    class="bi bi-info-circle" viewBox="0.9 0.9 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+                                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                </svg>
+                            </button>
+                        </p>
+                    </div>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Important info</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="text-align: left; font-size: 110%;">• Budgets that highly differ from
+                                        the average
+                                        Canadian - see values below - (i.e, very-high or very-low income
+                                        earners) will show erroneous results
+                                        <br><br>• Values are compared against the
+                                        data values found
+                                        <a id="ref" style="color: #ED635E;" target="_blank"
+                                            href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110022201">here</a><br><br>•
+                                        Only
+                                        positive integers are accepted as input
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="h btn btn-danger"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <!-- basically take out this next div and instead do a 2 seperate divs for each form, to put them next to each other!!! -->
+                            <form id="form">
+                                <div style="margin-right: 94%;"><label>Shelter</label></div>
+                                <input type="number" id="shelter" class="form-control" placeholder="0$" min="0"
+                                    oninput="validity.valid||(value='');" required />
+                                <br /> <br />
+                                <div style="margin-right: 94%;"><label>Clothing</label></div>
+                                <input type="number" id="clothing" class="form-control" placeholder="0$" min="0"
+                                    oninput="validity.valid||(value='');" required />
+                                <br /> <br />
+                                <div style="margin-right: 94%;"><label>Transportation</label></div>
+                                <input type="number" id="transportation" class="form-control" placeholder="0$"
+                                    oninput="validity.valid||(value='');" min="0" required />
+                                <br /> <br />
+                                <div style="margin-right: 94%;"><label>Healthcare</label></div>
+                                <input type="number" id="healthcare" class="form-control" placeholder="0$" min="0"
+                                    oninput="validity.valid||(value='');" required />
+                                </br> </br>
+                                <div style="margin-right: 94%;"><label>Personal</label></div>
+                                <input type="number" id="personal" class="form-control" placeholder="0$" min="0"
+                                    oninput="validity.valid||(value='');" required />
+                                </br> </br>
+                        </div>
+                        <div class="col">
+                            <div style="margin-right: 94%;"><label>Recreation</label></div>
+                            <input type="number" id="recreation" class="form-control" placeholder="0$" min="0"
+                                oninput="validity.valid||(value='');" pattern="[0-9]+" required />
+                            <br /> <br />
+                            <div style="margin-right: 94%;"><label>Education</label></div>
+                            <input type="number" id="education" class="form-control" placeholder="0$" min="0"
+                                oninput="validity.valid||(value='');" required />
+                            <br /> <br />
+                            <div style="margin-right: 94%;"><label>Miscellaneous</label></div>
+                            <input type="number" id="miscellaneous" class="form-control" placeholder="0$" min="0"
+                                oninput="validity.valid||(value='');" required />
+                            <br /> <br />
+                            <div style="margin-right: 94%;"><label>Investments</label></div>
+                            <input type="number" id="investments" class="form-control" placeholder="0$" min="0"
+                                oninput="validity.valid||(value='');" required />
+                            </br> </br>
+                            <div style="margin-right: 94%;"><label>Groceries</label></div>
+                            <input type="number" id="groceries" class="form-control" placeholder="0$" min="0"
+                                oninput="validity.valid||(value='');" required />
+                            </br> </br> <br>
+                        </div>
+                        <br>
+                        <p><input style="font-size: 120%;" class="btn btn-danger align-self-center h" type="submit"
+                                onclick="process()" id="submit" value="Evaluate expenses" />
+                        </p>
+                        </form>
+                    </div>
+                </div>
+                <a id="jumpToGraphs" href="#graphs" hidden></a>
+            </section>
+            <section hidden id='graphs' class="py-5 text-center container">
+                <h1 class="fw-light" style="text-align: left;">Comparison with national average:</h1>
+                <p style="text-align: justify; font-size: 110%">• A negative bar chart indicates Y% lack of expenses in
+                    that area <br> •
+                    A positive bar chart indicates Y% surplus in that area <br></p>
+                <canvas id="myChart"></canvas>
+                <br>
+                <p style="font-size: 110%">This is how we propose your budget should look like:</p>
+                <p>
+                    <b id="1"></b><br>
+                    <b id="2"></b><br>
+                    <b id="3"></b><br>
+                    <b id="4"></b><br>
+                    <b id="5"></b><br>
+                    <b id="6"></b><br>
+                    <b id="7"></b><br>
+                    <b id="8"></b><br>
+                    <b id="9"></b><br>
+                    <b id="10"></b>
+                </p>
+                <br> <br>
+                <h1 class="fw-light" style="text-align: left;">Investments over time:</h1>
+                <p style="text-align: justify; font-size: 110%">• The <strong>black</strong> line shows your expected
+                    investments
+                    before making changes to expenses<br> • The <strong style="color: #00c407;">green</strong> line
+                    shows the expected investments after making changes to
+                    your expenses</p>
+                <canvas id="myLinePlot" style="width: 100%"></canvas>
+            </section>
+        </main>
+
+        <footer class="text-muted py-5">
+            <div class="container">
+                <center><a class="text-muted" href="#">Back to top</a></center>
+                <br> <br>
+                <p style="font-size: small;" class="mb-0">What If Finance | 2023 ©</p>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+        <script>
+            counter = 0;
+            let myLinePlot = new Chart('myChart');
+            let myChart = new Chart('myLinePlot');
+            myChart.destroy()
+            myLinePlot.destroy()
+            document.getElementById('form').addEventListener("submit", function (event) {
+                event.preventDefault();
+            });
+            let values = []
+            function process() {
+                if (counter > 0) {
+                    myChart.destroy()
+                    myLinePlot.destroy()
+                }
+                const form = document.getElementsByTagName('input');
+                for (i = 0; i < form.length; i++) {
+                    if (form[i].value != undefined) {
+                        values[i] = form[i].value;
+                    }
+                }
+                shelter = values[0];
+                clothing = values[1];
+                transportation = values[2];
+                healthcare = values[3];
+                personal = values[4];
+                recreation = values[5];
+                education = values[6];
+                miscellaneous = values[7];
+                investments = values[8];
+                groceries = values[9];
+
+                if (notEmpty()) {
+                    document.getElementById('graphs').hidden = false;
+                    document.getElementById('jumpToGraphs').click();
+                    /**** functions to manipulate the data ****/
+
+                    // function to calculate the percent difference between two numbers
+                    function toPercentDifference(initial, current) {
+                        let differences = {};
+                        differences.percentage = (((current - initial) / initial) * 100).toFixed(2);
+                        differences.literal = current - initial;
+                        return differences;
+                    }
+
+                    // function to compare two objects, and show the differences between them
+                    function percentDifferenceObjects(govObject, individualObject) {
+                        return {
+                            Shelter: toPercentDifference(govObject.Shelter, individualObject.Shelter),
+                            'Clothing and accessories': toPercentDifference(govObject['Clothing and accessories'], individualObject['Clothing and accessories']),
+                            Transportation: toPercentDifference(govObject.Transportation, individualObject.Transportation),
+                            'Health care': toPercentDifference(govObject['Health care'], individualObject['Health care']),
+                            'Personal care': toPercentDifference(govObject['Personal care'], individualObject['Personal care']),
+                            Recreation: toPercentDifference(govObject.Recreation, individualObject.Recreation),
+                            Education: toPercentDifference(govObject.Education, individualObject.Education),
+                            'Miscellaneous expenditures': toPercentDifference(govObject['Miscellaneous expenditures'], individualObject['Miscellaneous expenditures']),
+                            'Investments per year': toPercentDifference(govObject['Investments per year'], individualObject['Investments per year']),
+                            Groceries: toPercentDifference(govObject.Groceries, individualObject.Groceries),
+                        };
+                    }
+
+                    // function to find where the user is not spending enough on categories deemed important, based on percentages
+                    // a difference of more than 10% is deemed critical.
+                    // creating an array which lists the important categories
+                    const importantCategories = ['Health care', 'Groceries', 'Education', 'Investments per year']; //chosen categories in what we think is the most important order
+
+                    function categoriesToSpendMore(spending) {
+                        let toImprove = {};
+                        for (const category in spending) {
+                            if (individualDifferences[category].percentage < -10 && importantCategories.includes(category)) {
+                                toImprove[category] = individualDifferences[category];
+                            }
+                        }
+                        return toImprove;
+                    }
+
+                    // function to look where the user is spending too much
+                    function categoriesToSpendLess(spending) {
+                        // creating an array which lists the important categories
+                        let toImprove = {};
+                        for (const category in spending) {
+                            if (individualDifferences[category].percentage > 10) {
+                                toImprove[category] = individualDifferences[category];
+                            }
+                        }
+                        return toImprove;
+                    }
+
+                    // function to redistribute the money more equally
+                    function redistribute(toSpendLess) {
+                        const newIndividual = { ...individualSpending }; // deep copy of our object
+                        // start by calculating all the excess money that we determined earlier and removing it from initial budget
+                        let excess = 0;
+
+                        for (const category in toSpendLess) {
+                            if (newIndividual[category] - toSpendLess[category].literal >= 0) {
+                                newIndividual[category] -= toSpendLess[category].literal; //removing the excess from the intial budget
+                                excess += toSpendLess[category].literal; // counting the excess
+                            }
+                        }
+
+                        //redistributing the money
+
+                        if (excess >= 0) {
+                            // looking at healthcare
+                            if (individualDifferences['Health care'].percentage < -10) {
+                                if (excess >= Math.abs(individualDifferences['Health care'].literal)) {
+                                    newIndividual['Health care'] = parseFloat(newIndividual['Health care']) + (Math.abs(parseFloat(individualDifferences['Health care'].literal)));
+
+                                    //adding the excess since the differences are negative (essentials subtracting)
+                                    excess += individualDifferences['Health care'].literal;
+                                } else {
+                                    newIndividual['Health care'] = parseInt(newIndividual['Health care']) + parseInt(excess);
+                                    excess = 0;
+                                }
+                            }
+                            // looking at groceries
+                            if (individualDifferences.Groceries.percentage < -10) {
+                                if (excess >= Math.abs(individualDifferences.Groceries.literal)) {
+                                    newIndividual.Groceries = parseFloat(newIndividual.Groceries) + (Math.abs(parseFloat(individualDifferences.Groceries.literal)));
+                                    excess += individualDifferences.Groceries.literal;
+                                } else {
+                                    newIndividual.Groceries = parseFloat(newIndividual.Groceries) + parseFloat(excess);
+                                    excess = 0;
+                                }
+                            }
+                            // looking at education
+                            if (individualDifferences.Education.percentage < -10) {
+                                if (excess >= Math.abs(individualDifferences.Education.literal)) {
+                                    newIndividual.Education = parseFloat(newIndividual.Education) + (Math.abs(parseFloat(individualDifferences.Education.literal)));
+                                    excess += individualDifferences.Education.literal;
+                                } else {
+                                    newIndividual.Education = parseFloat(newIndividual.Education) + parseFloat(excess);
+                                    excess = 0;
+                                }
+                            }
+                            //store the rest in investments
+                            if (excess > 0) {
+                                newIndividual['Investments per year'] = parseFloat(newIndividual['Investments per year']) + parseFloat(excess);
+                                excess = 0;
+                            }
+                            console.log(`excess after extra is removed ${excess}`);
+                            return newIndividual;
+                        }
+                    }
+
+                    function createDataForLine(budget) {
+                        const investmentAmount = budget['Investments per year'];
+                        let investmentArray = [];
+                        const annualRate = 7;
+                        const principal = investmentAmount;
+                        let finalSum = 0;
+
+                        //calculates how much money is made after 50 years of compound interest, at a rate of 7%/year
+                        for (time = 1; time < 51; time++) {
+                            finalSum = 0;
+                            finalSum = parseFloat(principal) * parseFloat(Math.pow(1 + annualRate / 100, time));
+                            finalSum = finalSum + (parseFloat(principal) * (parseFloat(Math.pow(1 + annualRate / 100, time)) - 1)) / (annualRate / 100);
+                            investmentArray.push([time, finalSum.toFixed(2)]);
+                        }
+                        return investmentArray;
+                    }
+                    // baseline values for the government values, to which we compare
+                    const baseLineGov = {
+                        Shelter: 20200,
+                        'Clothing and accessories': 3344,
+                        Transportation: 12737,
+                        'Health care': 2780,
+                        'Personal care': 1384,
+                        Recreation: 4624,
+                        Education: 1691,
+                        'Miscellaneous expenditures': 1838,
+                        'Investments per year': 6000,
+                        Groceries: 8541,
+                    };
+
+                    //currently hardcoded values for testing
+                    const individualSpending = {
+                        Shelter: shelter,
+                        'Clothing and accessories': clothing,
+                        Transportation: transportation,
+                        'Health care': healthcare,
+                        'Personal care': personal,
+                        Recreation: recreation,
+                        Education: education,
+                        'Miscellaneous expenditures': miscellaneous,
+                        'Investments per year': investments,
+                        Groceries: groceries,
+                    };
+
+                    // array used to store the individals on the website for creating our own dataset
+                    const populationSpending = [
+                        {
+                            Shelter: 20200,
+                            'Clothing and accessories': 3344,
+                            Transportation: 12737,
+                            'Health care': 2780,
+                            'Personal care': 1384,
+                            Recreation: 4624,
+                            Education: 1691,
+                            'Miscellaneous expenditures': 1838,
+                            'Investments per year': 500,
+                            Groceries: 10000,
+                        },
+                        {
+                            Shelter: 17200,
+                            'Clothing and accessories': 3000,
+                            Transportation: 12000,
+                            'Health care': 3300,
+                            'Personal care': 781,
+                            Recreation: 450,
+                            Education: 1700,
+                            'Miscellaneous expenditures': 2100,
+                            'Investments per year': 500,
+                            Groceries: 10000,
+                        },
+                    ];
+
+                    // creates a new object that stores the difference between the user and the government baseline values
+                    const individualDifferences = percentDifferenceObjects(baseLineGov, individualSpending);
+
+                    let individualDifferencesPercentages = [];
+
+                    for (const category in individualDifferences) {
+                        individualDifferencesPercentages.push(individualDifferences[category].percentage);
+                    }
+
+                    // creates an array of objects that stores the differences between all the users on the website (for scatter plot)
+                    let populationDifferencesPercentages = [];
+                    populationSpending.forEach((x) => {
+                        populationDifferencesPercentages.push(percentDifferenceObjects(baseLineGov, x));
+                    });
+
+                    /*** Suggestions based on the input ***/
+
+                    // looking at the categories where the person is not spending enough
+                    const toImprove = categoriesToSpendMore(individualDifferences);
+
+                    //looking at where the user is spending too much
+                    const toSpendLess = categoriesToSpendLess(individualDifferences);
+
+                    //Rebalancing budget
+                    const redistributedBudget = redistribute(toSpendLess);
+                    document.getElementById('1').innerHTML = 'Shelter: ' + redistributedBudget.Shelter;
+                    document.getElementById('2').innerHTML = 'Clothing and accessories: ' + redistributedBudget['Clothing and accessories'];
+                    document.getElementById('3').innerHTML = 'Transportation: ' + redistributedBudget.Transportation;
+                    document.getElementById('4').innerHTML = 'Health care: ' + redistributedBudget['Health care'];
+                    document.getElementById('5').innerHTML = 'Personal care: ' + redistributedBudget['Personal care'];
+                    document.getElementById('6').innerHTML = 'Recreation: ' + redistributedBudget.Recreation;
+                    document.getElementById('7').innerHTML = 'Education: ' + redistributedBudget.Education;
+                    document.getElementById('8').innerHTML = 'Miscellaneous expenditures: ' + redistributedBudget['Miscellaneous expenditures'];
+                    document.getElementById('9').innerHTML = 'Investments per year: ' + redistributedBudget['Investments per year'];
+                    document.getElementById('10').innerHTML = 'Groceries: ' + redistributedBudget.Groceries;
+
+                    // creating a prediction with the investments
+                    const beforeChangesInvestmentAmount = createDataForLine(individualSpending);
+                    const afterChangesInvestmentAmount = createDataForLine(redistributedBudget);
+
+                    let xValuesBefore = [];
+                    let yValuesBefore = [];
+                    beforeChangesInvestmentAmount.forEach((x) => {
+                        xValuesBefore.push(x[0]);
+                        yValuesBefore.push(x[1]);
+                    });
+
+                    let xValuesAfter = [];
+                    let yValuesAfter = [];
+                    afterChangesInvestmentAmount.forEach((x) => {
+                        xValuesAfter.push(x[0]);
+                        yValuesAfter.push(x[1]);
+                    });
+
+                    // const investmentArray
+                    myChart = new Chart('myChart', {
+                        type: 'bar',
+                        data: {
+                            labels: Object.keys(individualDifferences),
+                            datasets: [
+                                { fill: origin },
+                                {
+                                    label: 'Spending Categories',
+                                    data: individualDifferencesPercentages,
+                                    borderWidth: 1,
+                                },
+                            ],
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                },
+                            },
+                        },
+                    });
+
+                    line = document.getElementById('myLinePlot').getContext("2d");
+                    myLinePlot = new Chart(line, {
+                        type: 'line',
+                        data: {
+                            labels: xValuesBefore,
+                            datasets: [
+                                {
+                                    label: 'Before proposed changes',
+                                    fill: false,
+                                    lineTension: 0,
+                                    backgroundColor: 'black',
+                                    borderColor: 'black',
+                                    data: yValuesBefore,
+                                },
+                                {
+                                    label: 'After proposed changes',
+                                    fill: '-1',
+                                    lineTension: 0,
+                                    backgroundColor: 'pink',
+                                    borderColor: '#00c407',
+                                    data: yValuesAfter,
+                                },
+                            ],
+                        },
+                        options: {
+                            legend: { display: false },
+                            scales: {
+                                yAxes: [{ ticks: { min: 6, max: 16 } }],
+                            },
+                        },
+                    });
+                    counter++
+                }
+                else {
+                    document.getElementById('graphs').hidden = true;
+                }
+            }
+            function notEmpty() {
+                if (shelter != '' && clothing != '' && transportation != '' && healthcare != '' && personal != '' && recreation != '' && education != '' && miscellaneous != '' && investments != '' && groceries != '' && shelter != undefined && clothing != undefined && transportation != undefined && healthcare != undefined && personal != undefined && recreation != undefined && education != undefined && miscellaneous != undefined && investments != undefined && groceries != undefined) {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+        </script>
+    </body>
+
+</html>
